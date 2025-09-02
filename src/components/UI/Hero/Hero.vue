@@ -17,7 +17,6 @@ onMounted(() => {
   const t2 = SplitText.create(subline || "", { type: "chars" });
 
   gsap.from(t.chars, {
-    delay: 2.5,
     opacity: 0,
     duration: 1,
     stagger: 0.05,
@@ -25,7 +24,7 @@ onMounted(() => {
   });
 
   gsap.to(title.value, {
-    delay: 3.5,
+    delay: 1,
     autoAlpha: 0,
     y: -80,
     ease: "power4.inOut",
@@ -33,7 +32,7 @@ onMounted(() => {
   });
 
   tl.from(t2.chars, {
-    delay: 4,
+    delay: 1.5,
     stagger: {
       each: 0.05,
       from: "end",
