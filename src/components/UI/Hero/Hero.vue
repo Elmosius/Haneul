@@ -9,24 +9,16 @@ gsap.registerPlugin(ScrollTrigger);
 const hero = ref<HTMLDivElement | null>(null);
 const title = ref<HTMLHeadingElement | null>(null);
 
-const test = ref<HTMLDivElement | null>(null);
-const img = ref<HTMLImageElement | null>(null);
-const card = ref<HTMLDivElement | null>(null);
-const taglineImg = ref<HTMLHeadingElement | null>(null);
+const test = ref<HTMLElement | null>(null);
+const test2 = ref<HTMLElement | null>(null);
+const test3 = ref<HTMLElement | null>(null);
 
-const test2 = ref<HTMLDivElement | null>(null);
-const card2 = ref<HTMLDivElement | null>(null);
-const taglineImg2 = ref<HTMLHeadingElement | null>(null);
+const img = ref<HTMLElement | null>(null);
+const img2 = ref<HTMLElement | null>(null);
+const img3 = ref<HTMLElement | null>(null);
 
 onMounted(() => {
-  const tl = gsap.timeline({
-    yoyo: true,
-    repeat: -1,
-    repeatDelay: 1,
-  });
   const t = SplitText.create(title.value, { type: "chars" });
-  const subline = title.value?.nextElementSibling;
-  const t2 = SplitText.create(subline || "", { type: "chars" });
 
   gsap.set(t.chars, {
     clipPath: "inset(0 0 0 0)",
@@ -46,6 +38,15 @@ onMounted(() => {
     duration: 1.5,
     onComplete: () => title.value?.classList.add("hidden"),
   });
+
+  const tl = gsap.timeline({
+    yoyo: true,
+    repeat: -1,
+    repeatDelay: 1,
+  });
+
+  const subline = title.value?.nextElementSibling;
+  const t2 = SplitText.create(subline || "", { type: "chars" });
 
   tl.from(t2.chars, {
     delay: 2.5,
@@ -68,117 +69,102 @@ onMounted(() => {
       scrambleText: "하늘에 담긴 너의 이야기 조각",
     });
 
+  gsap.set(test.value, {
+    clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
+  });
+
+  const text = test2.value?.children[1];
+  const textSplit = SplitText.create(text || "", { type: "chars" });
+
   gsap
     .timeline({
       scrollTrigger: {
         trigger: hero.value,
         start: "top top",
-        end: "bottom center",
-        scrub: 1,
-        pin: true,
+        end: "bottom+=80% top",
+        scrub: 0.2,
       },
     })
-    .fromTo(
-      test.value,
-      {
-        yPercent: -12,
-        clipPath: "polygon(0 20px,100% 0,100% 100%,0 100%)",
-      },
-      {
-        clipPath: "polygon(0 200px,100% 0,100% 100%,0 100%)",
-        yPercent: -100,
-        ease: "power4.inOut",
-      },
-    );
-
-  gsap.set(card.value, {
-    scale: 0.7,
-  });
-
-  const t1 = SplitText.create(taglineImg.value, { type: "chars" });
-
-  gsap.set(t1.chars, {
-    y: -50,
-    clipPath: "inset(0 0 0 0)",
-  });
-
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: test.value,
-        start: "top bottom",
-        end: "top center",
-        scrub: 1,
-        // pin: true,
-        markers: true,
-      },
+    .to(test.value, {
+      yPercent: -100,
+      clipPath: "polygon(0 25%, 100% 0, 100% 100%, 0% 100%)",
     })
-    .to(card.value, {
+    .to(img.value, {
+      width: "100%",
       scale: 1,
-      ease: "power4.inOut",
+    })
+    .to(img.value, {
+      scale: 0.65,
+      width: "50%",
     })
     .from(
-      t1.chars,
+      textSplit.chars,
       {
-        stagger: 0.05,
-        y: 0,
         clipPath: "inset(100% 0 0 0)",
-        ease: "power4.inOut",
+        stagger: 0.05,
       },
-      "-=0.5",
-    )
-    .to(card.value, {
-      yPercent: -5,
-      scale: 0.9,
-      ease: "power4.inOut",
-    });
+      "-=1",
+    );
 
-  /// Image 2
-  const t3 = SplitText.create(taglineImg2.value, { type: "chars" });
-
-  gsap.set(test2.value, {
-    yPercent: -100,
-  });
-
-  gsap.set(card2.value, {
-    scale: 0.7,
-  });
-
-  gsap.set(t3.chars, {
-    y: -50,
-    clipPath: "inset(0 0 0 0)",
-  });
+  const text2 = img2.value?.nextSibling;
+  const textSplit2 = SplitText.create(text2, { type: "chars" });
 
   gsap
     .timeline({
       scrollTrigger: {
         trigger: test2.value,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1,
-        markers: true,
+        start: "bottom center",
+        end: "bottom+=50% top",
+        scrub: 0.2,
       },
     })
-    .to(card2.value, {
+    .to(img2.value, {
+      width: "100%",
       scale: 1,
-      ease: "power4.inOut",
     })
-    .from(t3.chars, {
-      stagger: 0.05,
-      y: 0,
-      clipPath: "inset(100% 0 0 0)",
-      duration: 1,
+    .to(img2.value, {
+      scale: 0.65,
+      width: "50%",
     })
-    .to(card2.value, {
-      yPercent: -5,
-      scale: 0.9,
-      ease: "power4.inOut",
-    });
+    .from(
+      textSplit2.chars,
+      {
+        clipPath: "inset(100% 0 0 0)",
+        stagger: 0.05,
+      },
+      "-=1",
+    );
+
+  const text3 = img3.value?.nextSibling;
+  const textSplit3 = SplitText.create(text3, { type: "chars" });
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: test3.value,
+        start: "top center",
+        end: "bottom center",
+        scrub: 0.2,
+        // markers: true,
+      },
+    })
+    .to(img3.value, {
+      width: "100%",
+      scale: 1,
+    })
+    .from(
+      textSplit3.chars,
+      {
+        clipPath: "inset(100% 0 0 0)",
+        stagger: 0.05,
+      },
+      "<",
+    );
 });
 </script>
 
 <template>
-  <section ref="hero">
+  <section ref="hero" class="relative">
     <div
       class="text-gwhite flex flex-col gap-5 justify-center items-center h-screen w-screen bg-night"
     >
@@ -187,43 +173,54 @@ onMounted(() => {
     </div>
   </section>
 
-  <div class="bg-gwhite relative" ref="test">
-    <div class="flex flex-col justify-center items-center">
-      <div ref="card">
+  <div class="relative w-screen">
+    <div class="h-[150vh] w-screen"></div>
+
+    <div
+      class="absolute inset-0 bg-gwhite h-[150vh] w-screen z-30 overflow-hidden flex items-center justify-center"
+      ref="test2"
+    >
+      <div class="scale-65 w-1/2" ref="img">
         <img
           src="/images/1.jpg"
           alt="1"
-          class="w-full h-full object-cover rounded-xl grayscale-50"
-          ref="img"
+          class="w-full h-full object-cover origin-[bottom_center] brightness-75"
         />
-
-        <div
-          class="absolute inset-0 flex justify-center items-center top-[30%]"
-        >
-          <h2 class="text-gwhite font-semibold text-9xl" ref="taglineImg">
-            서울빛
-          </h2>
-        </div>
       </div>
+
+      <p class="absolute font-semibold text-8xl uppercase text-gwhite">Cloud</p>
     </div>
+
+    <div class="absolute inset-0 bg-gwhite h-screen w-screen z-20" ref="test" />
   </div>
 
-  <div class="relative bg-gwhite" ref="test2">
-    <div class="flex justify-center items-center">
-      <div ref="card2">
-        <img
-          src="/images/2.jpg"
-          alt="2"
-          class="w-full h-full object-cover rounded-xl grayscale-50"
-        />
-      </div>
-
-      <div class="absolute inset-0 flex justify-center items-center">
-        <h2 class="text-gwhite font-semibold text-9xl" ref="taglineImg2">
-          하늘빛
-        </h2>
-      </div>
+  <div
+    class="relative bg-gwhite h-[150vh] w-screen flex items-center justify-center"
+  >
+    <div class="scale-65 w-1/2" ref="img2">
+      <img
+        src="/images/2.jpg"
+        alt="2"
+        class="w-full h-full object-cover origin-[bottom_center] brightness-75"
+      />
     </div>
+
+    <p class="absolute font-semibold text-8xl uppercase text-gwhite">light</p>
+  </div>
+
+  <div
+    class="relative bg-gwhite h-[150vh] flex items-center justify-center"
+    ref="test3"
+  >
+    <div class="scale-65 w-1/2" ref="img3">
+      <img
+        src="/images/3.jpg"
+        alt="3"
+        class="w-full h-full object-cover brightness-75"
+      />
+    </div>
+
+    <p class="absolute font-semibold text-8xl uppercase text-gwhite">memory</p>
   </div>
 </template>
 

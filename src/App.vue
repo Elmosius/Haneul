@@ -8,7 +8,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import Hero from "./components/UI/Hero";
 import Intro from "./components/UI/Intro";
 
-const isIntroCompleted = ref(true);
+const isIntroCompleted = ref(false);
 
 function handleIntroCompleted() {
   isIntroCompleted.value = true;
@@ -24,10 +24,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="h-screen w-screen bg-night">
-    <Intro @intro-completed="handleIntroCompleted" />
-    <Hero v-if="isIntroCompleted" />
-  </main>
+  <Intro @intro-completed="handleIntroCompleted" />
+  <Hero v-if="isIntroCompleted" />
 </template>
 
 <style scoped></style>
