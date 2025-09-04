@@ -18,6 +18,18 @@ const img2 = ref<HTMLElement | null>(null);
 const img3 = ref<HTMLElement | null>(null);
 
 onMounted(() => {
+  if (
+    !hero.value ||
+    !title.value ||
+    !test.value ||
+    !test2.value ||
+    !test3.value ||
+    !img.value ||
+    !img2.value ||
+    !img3.value
+  )
+    return;
+
   const t = SplitText.create(title.value, { type: "chars" });
 
   gsap.set(t.chars, {
@@ -106,7 +118,7 @@ onMounted(() => {
       "-=1",
     );
 
-  const text2 = img2.value?.nextSibling;
+  const text2 = img2.value?.nextSibling as HTMLElement;
   const textSplit2 = SplitText.create(text2, { type: "chars" });
 
   gsap
@@ -135,7 +147,7 @@ onMounted(() => {
       "-=1",
     );
 
-  const text3 = img3.value?.nextSibling;
+  const text3 = img3.value?.nextSibling as HTMLElement;
   const textSplit3 = SplitText.create(text3, { type: "chars" });
 
   gsap
