@@ -83,7 +83,7 @@ onMounted(() => {
       scrollTrigger: {
         trigger: hero.value,
         start: 'top top',
-        end: 'bottom+=80% top',
+        end: 'bottom+=90% top',
         scrub: 0.2,
       },
     })
@@ -92,12 +92,8 @@ onMounted(() => {
       clipPath: 'polygon(0 25%, 100% 0, 100% 100%, 0% 100%)',
     })
     .to(img.value, {
-      width: '100%',
-      scale: 1,
-    })
-    .to(img.value, {
-      scale: 0.65,
-      width: '50%',
+      clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+      ease: 'none',
     })
     .from(
       textSplit.chars,
@@ -105,8 +101,12 @@ onMounted(() => {
         clipPath: 'inset(100% 0 0 0)',
         stagger: 0.05,
       },
-      '-=1'
-    );
+      '-=0.5'
+    )
+    .to(img.value, {
+      clipPath: 'polygon(0% 0%, 100% 0%, 75% 60%, 25% 75%)',
+      ease: 'none',
+    });
 
   const text2 = img2.value?.nextSibling as HTMLElement;
   const textSplit2 = SplitText.create(text2, { type: 'chars' });
@@ -121,12 +121,8 @@ onMounted(() => {
       },
     })
     .to(img2.value, {
-      width: '100%',
-      scale: 1,
-    })
-    .to(img2.value, {
-      scale: 0.65,
-      width: '50%',
+      clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+      ease: 'none',
     })
     .from(
       textSplit2.chars,
@@ -134,8 +130,12 @@ onMounted(() => {
         clipPath: 'inset(100% 0 0 0)',
         stagger: 0.05,
       },
-      '-=1'
-    );
+      '-=0.5'
+    )
+    .to(img2.value, {
+      clipPath: 'polygon(0% 0%, 100% 0%, 75% 60%, 25% 75%)',
+      ease: 'none',
+    });
 
   const text3 = img3.value?.nextSibling as HTMLElement;
   const textSplit3 = SplitText.create(text3, { type: 'chars' });
@@ -147,12 +147,12 @@ onMounted(() => {
         start: 'top center',
         end: 'bottom center',
         scrub: 0.2,
-        // markers: true,
+        //
       },
     })
     .to(img3.value, {
-      width: '100%',
-      scale: 1,
+      clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+      ease: 'none',
     })
     .from(
       textSplit3.chars,
@@ -177,9 +177,7 @@ onMounted(() => {
     <div class="h-[150vh]"></div>
 
     <div class="absolute inset-0 bg-gwhite h-[150vh] z-30 overflow-hidden flex items-center justify-center" ref="test2">
-      <div class="scale-65 w-1/2" ref="img">
-        <img src="/images/1.jpg" alt="1" class="w-full h-full object-cover origin-[bottom_center] brightness-75" />
-      </div>
+      <img src="/images/1.jpg" alt="1" class="w-full h-full object-cover origin-[bottom_center] brightness-75" ref="img" />
 
       <p class="absolute font-semibold text-8xl uppercase text-gwhite">Cloud</p>
     </div>
@@ -188,17 +186,13 @@ onMounted(() => {
   </div>
 
   <div class="relative bg-gwhite h-[150vh] flex items-center justify-center">
-    <div class="scale-65 w-1/2" ref="img2">
-      <img src="/images/2.jpg" alt="2" class="w-full h-full object-cover origin-[bottom_center] brightness-75" />
-    </div>
+    <img src="/images/2.jpg" alt="2" class="w-full h-full object-cover origin-[bottom_center] brightness-75" ref="img2" />
 
     <p class="absolute font-semibold text-8xl uppercase text-gwhite">light</p>
   </div>
 
   <div class="relative bg-gwhite h-[150vh] flex items-center justify-center" ref="test3">
-    <div class="scale-65 w-1/2" ref="img3">
-      <img src="/images/3.jpg" alt="3" class="w-full h-full object-cover brightness-75" />
-    </div>
+    <img src="/images/3.jpg" alt="3" class="w-full h-full object-cover brightness-75" ref="img3" />
 
     <p class="absolute font-semibold text-8xl uppercase text-gwhite">memory</p>
   </div>
